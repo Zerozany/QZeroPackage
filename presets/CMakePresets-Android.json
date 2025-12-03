@@ -6,7 +6,6 @@
             "hidden": true,
             "generator": "Ninja",
             "cacheVariables": {
-                "ANDROID_SDK_ROOT": "D:/AndroidEnv/SDK",
                 "ANDROID_NDK": "D:/AndroidEnv/SDK/ndk/27.2.12479018",
                 "CMAKE_TOOLCHAIN_FILE": "D:/vcpkg/scripts/buildsystems/vcpkg.cmake",
                 "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "D:/AndroidEnv/SDK/ndk/27.2.12479018/build/cmake/android.toolchain.cmake",
