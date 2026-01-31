@@ -32,7 +32,7 @@ auto ZeroLogger::init(const std::string& _logPath, std::size_t _logNum) noexcept
         sinks.push_back(consoleSink);
 #elif defined(__ANDROID__)
         // Android: logcat sink
-        auto androidSink{std::make_shared<spdlog::sinks::android_sink_mt>("SonixBeauty")};
+        auto androidSink{std::make_shared<spdlog::sinks::android_sink_mt>("ZeroLog")};
         androidSink->set_level(spdlog::level::debug);
         sinks.push_back(androidSink);
 #endif
