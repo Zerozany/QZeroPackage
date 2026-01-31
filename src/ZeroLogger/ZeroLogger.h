@@ -3,20 +3,22 @@ _Pragma("once");
 #include <spdlog/spdlog.h>
 
 #if defined(_WIN32) && defined(_MSC_VER)
-    #ifdef SONIXBEAUTYLIBS
-        #define SONIXEX_API __declspec(dllexport)
+    #ifdef QZeroPackage
+        #define ZERO_API __declspec(dllexport)
     #else
-        #define SONIXEX_API __declspec(dllimport)
+        #define ZERO_API __declspec(dllimport)
     #endif
+#elif defined(__GNUC__) || defined(__clang__)
+    #define ZERO_API __attribute__((visibility("default")))
 #else
-    #define SONIXEX_API
+    #define ZERO_API
 #endif
 
-class SONIXEX_API SonixLogger
+class ZERO_API ZeroLogger
 {
 public:
-    explicit(true) SonixLogger();
-    ~SonixLogger() noexcept;
+    explicit(true) ZeroLogger();
+    ~ZeroLogger() noexcept;
 
 public:
     static auto init(const std::string& _logPath, std::size_t _logNum = 3) noexcept -> void;
@@ -49,7 +51,7 @@ private:
 };
 
 template <typename... Args>
-inline auto SonixLogger::trace(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::trace(const char* _fmt, const Args&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
@@ -58,7 +60,7 @@ inline auto SonixLogger::trace(const char* _fmt, const Args&... _args) noexcept 
 }
 
 template <typename... Args>
-inline auto SonixLogger::debug(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::debug(const char* _fmt, const Args&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
@@ -67,7 +69,7 @@ inline auto SonixLogger::debug(const char* _fmt, const Args&... _args) noexcept 
 }
 
 template <typename... Args>
-inline auto SonixLogger::info(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::info(const char* _fmt, const Args&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
@@ -76,7 +78,7 @@ inline auto SonixLogger::info(const char* _fmt, const Args&... _args) noexcept -
 }
 
 template <typename... Args>
-inline auto SonixLogger::warn(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::warn(const char* _fmt, const Args&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
@@ -85,7 +87,7 @@ inline auto SonixLogger::warn(const char* _fmt, const Args&... _args) noexcept -
 }
 
 template <typename... Args>
-inline auto SonixLogger::error(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::error(const char* _fmt, const Args&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
@@ -94,7 +96,7 @@ inline auto SonixLogger::error(const char* _fmt, const Args&... _args) noexcept 
 }
 
 template <typename... Args>
-inline auto SonixLogger::critical(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::critical(const char* _fmt, const Args&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {

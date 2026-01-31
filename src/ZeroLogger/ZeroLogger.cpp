@@ -1,4 +1,4 @@
-#include "SonixLogger.h"
+#include "ZeroLogger.h"
 
 #include <spdlog/async.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -9,16 +9,16 @@
 
 static constexpr std::size_t LOGSIZE{1024 * 1024 * 5};
 
-SonixLogger::SonixLogger()
+ZeroLogger::ZeroLogger()
 {
 }
 
-SonixLogger::~SonixLogger() noexcept
+ZeroLogger::~ZeroLogger() noexcept
 {
-    std::invoke(&SonixLogger::shutdown);
+    std::invoke(&ZeroLogger::shutdown);
 }
 
-auto SonixLogger::init(const std::string& _logPath, std::size_t _logNum) noexcept -> void
+auto ZeroLogger::init(const std::string& _logPath, std::size_t _logNum) noexcept -> void
 {
     try
     {
@@ -41,7 +41,7 @@ auto SonixLogger::init(const std::string& _logPath, std::size_t _logNum) noexcep
         fileSink.get()->set_level(spdlog::level::warn);
         sinks.push_back(fileSink);
 
-        m_LoggerInstance = std::make_shared<spdlog::async_logger>("SonixLogger", sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
+        m_LoggerInstance = std::make_shared<spdlog::async_logger>("ZeroLogger", sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
         spdlog::register_logger(m_LoggerInstance);
         spdlog::set_default_logger(m_LoggerInstance);
         spdlog::set_pattern("[%Y年%m月%d日 %H:%M:%S]-%^ [%l] %n::%v%$");
@@ -53,13 +53,13 @@ auto SonixLogger::init(const std::string& _logPath, std::size_t _logNum) noexcep
     }
 }
 
-auto SonixLogger::shutdown() noexcept -> void
+auto ZeroLogger::shutdown() noexcept -> void
 {
     spdlog::drop_all();
     m_LoggerInstance.reset();
 }
 
-auto SonixLogger::setLevel(const spdlog::level::level_enum& _level) noexcept -> void
+auto ZeroLogger::setLevel(const spdlog::level::level_enum& _level) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
