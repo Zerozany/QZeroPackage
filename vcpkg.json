@@ -1,10 +1,15 @@
 {
-    "name": "logger",
+    "name": "zeropackage",
     "version": "1.0.0",
     "dependencies": [
         {
             "name": "spdlog",
             "version>=": "1.15.3",
+            "platform": "android|windows"
+        },
+        {
+            "name": "libusb",
+            "version>=": "1.0.29",
             "platform": "android|windows"
         }
     ],
