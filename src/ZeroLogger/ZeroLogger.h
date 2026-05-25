@@ -26,22 +26,22 @@ public:
     static auto setLevel(const spdlog::level::level_enum& _level) noexcept -> void;
 
     template <typename... Args>
-    static auto trace(const char* _fmt, const Args&... _args) noexcept -> void;
+    static auto trace(const char* _fmt, Args&&... _args) noexcept -> void;
 
     template <typename... Args>
-    static auto debug(const char* _fmt, const Args&... _args) noexcept -> void;
+    static auto debug(const char* _fmt, Args&&... _args) noexcept -> void;
 
     template <typename... Args>
-    static auto info(const char* _fmt, const Args&... _args) noexcept -> void;
+    static auto info(const char* _fmt, Args&&... _args) noexcept -> void;
 
     template <typename... Args>
-    static auto warn(const char* _fmt, const Args&... _args) noexcept -> void;
+    static auto warn(const char* _fmt, Args&&... _args) noexcept -> void;
 
     template <typename... Args>
-    static auto error(const char* _fmt, const Args&... _args) noexcept -> void;
+    static auto error(const char* _fmt, Args&&... _args) noexcept -> void;
 
     template <typename... Args>
-    static auto critical(const char* _fmt, const Args&... _args) noexcept -> void;
+    static auto critical(const char* _fmt, Args&&... _args) noexcept -> void;
 
 private:
     static auto shutdown() noexcept -> void;
@@ -51,55 +51,55 @@ private:
 };
 
 template <typename... Args>
-inline auto ZeroLogger::trace(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::trace(const char* _fmt, Args&&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
-        m_LoggerInstance.get()->trace(_fmt, _args...);
+        m_LoggerInstance.get()->trace(_fmt, std::forward<Args>(_args)...);
     }
 }
 
 template <typename... Args>
-inline auto ZeroLogger::debug(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::debug(const char* _fmt, Args&&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
-        m_LoggerInstance.get()->debug(_fmt, _args...);
+        m_LoggerInstance.get()->debug(_fmt, std::forward<Args>(_args)...);
     }
 }
 
 template <typename... Args>
-inline auto ZeroLogger::info(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::info(const char* _fmt, Args&&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
-        m_LoggerInstance.get()->info(_fmt, _args...);
+        m_LoggerInstance.get()->info(_fmt, std::forward<Args>(_args)...);
     }
 }
 
 template <typename... Args>
-inline auto ZeroLogger::warn(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::warn(const char* _fmt, Args&&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
-        m_LoggerInstance.get()->warn(_fmt, _args...);
+        m_LoggerInstance.get()->warn(_fmt, std::forward<Args>(_args)...);
     }
 }
 
 template <typename... Args>
-inline auto ZeroLogger::error(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::error(const char* _fmt, Args&&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
-        m_LoggerInstance.get()->error(_fmt, _args...);
+        m_LoggerInstance.get()->error(_fmt, std::forward<Args>(_args)...);
     }
 }
 
 template <typename... Args>
-inline auto ZeroLogger::critical(const char* _fmt, const Args&... _args) noexcept -> void
+inline auto ZeroLogger::critical(const char* _fmt, Args&&... _args) noexcept -> void
 {
     if (m_LoggerInstance.get())
     {
-        m_LoggerInstance.get()->critical(_fmt, _args...);
+        m_LoggerInstance.get()->critical(_fmt, std::forward<Args>(_args)...);
     }
 }
