@@ -44,7 +44,7 @@ auto ZeroLogger::init(const std::string& _logPath, std::size_t _logNum) noexcept
         m_LoggerInstance = std::make_shared<spdlog::async_logger>("ZeroLogger", sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
         spdlog::register_logger(m_LoggerInstance);
         spdlog::set_default_logger(m_LoggerInstance);
-        spdlog::set_pattern("[%Y年%m月%d日 %H:%M:%S]-%^ [%l] %n::%v%$");
+        spdlog::set_pattern("[%Y-%m-%d %H:%M:%S]-%^ [%l] %n::%v%$");
         m_LoggerInstance.get()->set_level(spdlog::level::trace);
     }
     catch (const std::exception& _e)
