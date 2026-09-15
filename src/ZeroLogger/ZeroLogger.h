@@ -17,11 +17,15 @@ _Pragma("once");
 class ZERO_API ZeroLogger
 {
 public:
-    explicit(true) ZeroLogger();
+    static auto instance() noexcept -> ZeroLogger*;
+
     ~ZeroLogger() noexcept;
 
 public:
     static auto init(const std::string& _logPath, std::size_t _logNum = 3) noexcept -> void;
+
+private:
+    explicit(true) ZeroLogger();
 
 private:
     static auto shutdown() noexcept -> void;

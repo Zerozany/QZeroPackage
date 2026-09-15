@@ -9,13 +9,20 @@
 
 static constexpr std::size_t LOGSIZE{1024 * 1024 * 5};
 
+auto ZeroLogger::instance() noexcept -> ZeroLogger*
+{
+    static ZeroLogger* zeroLogger{new ZeroLogger{}};
+    return zeroLogger;
+}
+
 ZeroLogger::ZeroLogger()
 {
 }
 
 ZeroLogger::~ZeroLogger() noexcept
 {
-    std::invoke(&ZeroLogger::shutdown);
+    spdlog::drop_all();
+    m_LoggerInstance.reset();
 }
 
 auto ZeroLogger::init(const std::string& _logPath, std::size_t _logNum) noexcept -> void
@@ -40,19 +47,13 @@ auto ZeroLogger::init(const std::string& _logPath, std::size_t _logNum) noexcept
         sinks.push_back(fileSink);
 
         m_LoggerInstance = std::make_shared<spdlog::async_logger>("ZeroLogger", sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
+        m_LoggerInstance->flush_on(spdlog::level::trace);
         spdlog::register_logger(m_LoggerInstance);
         spdlog::set_default_logger(m_LoggerInstance);
-        spdlog::set_pattern("[%Y-%m-%d %H:%M:%S]-%^ [%l] %n::%v%$");
-        m_LoggerInstance.get()->set_level(spdlog::level::trace);
+        spdlog::set_pattern("[%Y-%m-%d %H:%M:%S]%^ [%s:%#][%l]: %v%$");
     }
     catch (const std::exception& _e)
     {
         std::println("Failed to enable the logging function:{}", _e.what());
     }
-}
-
-auto ZeroLogger::shutdown() noexcept -> void
-{
-    spdlog::drop_all();
-    m_LoggerInstance.reset();
 }
