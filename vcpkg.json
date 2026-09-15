@@ -11,6 +11,15 @@
             "name": "libusb",
             "version>=": "1.0.29",
             "platform": "android|windows"
+        },
+        {
+            "name": "openssl",
+            "version>=": "3.6.0",
+            "platform": "android|windows"
+        },
+        {
+            "name": "cpp-httplib",
+            "version>=": "0.18.0"
         }
     ],
     "builtin-baseline": "c59b04f668d20c7dd83f478835e8266a3cc51270"
