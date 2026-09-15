@@ -28,8 +28,5 @@ private:
     explicit(true) ZeroLogger();
 
 private:
-    static auto shutdown() noexcept -> void;
-
-private:
     inline static std::shared_ptr<spdlog::logger> m_LoggerInstance{nullptr};
 };
