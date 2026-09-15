@@ -28,17 +28,15 @@ auto ZeroLogger::init(const std::string& _logPath, std::size_t _logNum) noexcept
 #if defined(_WIN32)
         // Windows: 控制台 sink
         auto consoleSink{std::make_shared<spdlog::sinks::stdout_color_sink_mt>()};
-        consoleSink->set_level(spdlog::level::trace);
         sinks.push_back(consoleSink);
 #elif defined(__ANDROID__)
         // Android: logcat sink
         auto androidSink{std::make_shared<spdlog::sinks::android_sink_mt>()};
-        androidSink->set_level(spdlog::level::trace);
         sinks.push_back(androidSink);
 #endif
         // 文件 sink：只写 warn 以上等级日志（自动轮转）
         auto fileSink{std::make_shared<spdlog::sinks::rotating_file_sink_mt>(_logPath, LOGSIZE, _logNum)};
-        fileSink.get()->set_level(spdlog::level::warn);
+        fileSink->set_level(spdlog::level::info);
         sinks.push_back(fileSink);
 
         m_LoggerInstance = std::make_shared<spdlog::async_logger>("ZeroLogger", sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
@@ -57,12 +55,4 @@ auto ZeroLogger::shutdown() noexcept -> void
 {
     spdlog::drop_all();
     m_LoggerInstance.reset();
-}
-
-auto ZeroLogger::setLevel(const spdlog::level::level_enum& _level) noexcept -> void
-{
-    if (m_LoggerInstance.get())
-    {
-        m_LoggerInstance.get()->set_level(_level);
-    }
 }
