@@ -14,18 +14,18 @@ _Pragma("once");
     #define ZERO_API
 #endif
 
-class ZERO_API ZeroLogger
+class ZERO_API SpdLogger
 {
 public:
-    static auto instance() noexcept -> ZeroLogger*;
+    static auto instance() noexcept -> SpdLogger*;
 
-    ~ZeroLogger() noexcept;
+    ~SpdLogger() noexcept;
 
 public:
     static auto init(const std::string& _logPath, std::size_t _logNum = 3) noexcept -> void;
 
 private:
-    explicit(true) ZeroLogger();
+    explicit(true) SpdLogger();
 
 private:
     inline static std::shared_ptr<spdlog::logger> m_LoggerInstance{nullptr};
