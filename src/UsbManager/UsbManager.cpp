@@ -1,5 +1,6 @@
 #include "UsbManager.h"
 #include <print>
+#include <functional>
 
 UsbManager::UsbManager()
 {
