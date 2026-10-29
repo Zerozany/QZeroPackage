@@ -40,7 +40,6 @@ template <typename... Args>
 inline HttpsManager<Args...>::~HttpsManager() noexcept
 {
     delete m_sslClient;
-    m_sslClient = nullptr;
 }
 
 template <typename... Args>
